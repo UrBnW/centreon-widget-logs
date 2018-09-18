@@ -202,9 +202,12 @@ if (isset($preferences['object_name_search']) && $preferences['object_name_searc
         $search = $tab[1];
     }
     if ($op && isset($search) && $search != "") {
-        $msg_req .= " AND (host_name " . CentreonUtils::operandToMysqlFormat($op) . " '" . $dbb->escape($search) . "' ";
-        $msg_req .= " OR service_description " . CentreonUtils::operandToMysqlFormat($op) . " '" . $dbb->escape($search) . "' ";
-        $msg_req .= " OR instance_name " . CentreonUtils::operandToMysqlFormat($op) . " '" . $dbb->escape($search) . "') ";
+        $msg_req .= " AND (host_name " . CentreonUtils::operandToMysqlFormat($op) .
+            " '" . $dbb->escape($search) . "' ";
+        $msg_req .= " OR service_description " . CentreonUtils::operandToMysqlFormat($op) .
+            " '" . $dbb->escape($search) . "' ";
+        $msg_req .= " OR instance_name " . CentreonUtils::operandToMysqlFormat($op) .
+            " '" . $dbb->escape($search) . "') ";
     }
 }
 
@@ -216,7 +219,8 @@ if (isset($preferences['output_search']) && $preferences['output_search'] != "")
         $outputSearch = $tab[1];
     }
     if ($op && isset($outputSearch) && $outputSearch != "") {
-        $msg_req .= " AND output " . CentreonUtils::operandToMysqlFormat($op) . " '" . $dbb->escape($outputSearch) . "' ";
+        $msg_req .= " AND output " . CentreonUtils::operandToMysqlFormat($op) .
+            " '" . $dbb->escape($outputSearch) . "' ";
     }
 }
 
@@ -228,7 +232,8 @@ if (isset($preferences['order_by']) && $preferences['order_by'] != "") {
 
 $start = time() - $preferences['log_period'];
 $end = time();
-$query = "SELECT SQL_CALC_FOUND_ROWS * FROM logs WHERE ctime > '$start' AND ctime <= '$end' $msg_req";
+$query = "SELECT SQL_CALC_FOUND_ROWS * FROM logs";
+$query .= " WHERE ctime > '" . $start . "' AND ctime <= '" . $end . "' " . $msg_req;
 $query .= " ORDER BY ctime DESC, host_name ASC, log_id DESC, service_description ASC";
 $query .= " LIMIT " . ($page * $preferences['entries']) . "," . $preferences['entries'];
 $res = $dbb->query($query);
@@ -242,7 +247,7 @@ if (!$centreon->user->admin) {
     $lca = array("LcaHost" => $aclObj->getHostServices($dbb, null, 1));
 }
 
-while ($row = $res->fetchRow()) {
+while ($row = $res->fetch()) {
     if (!$centreon->user->admin) {
         $continue = true;
         if (isset($row['host_id']) && isset($lca['LcaHost'][$row['host_id']])) {
