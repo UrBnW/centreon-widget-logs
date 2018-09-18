@@ -276,9 +276,7 @@ while ($row = $res->fetch()) {
         $data[$row['log_id']]['object_name2'] = "";
     }
     foreach ($row as $key => $value) {
-        if ($key == "ctime") {
-            $value = date("Y-m-d H:i:s", $value);
-        } elseif ($key == "status") {
+        if ($key == "status") {
             if (isset($row['service_description']) && $row['service_description'] != "") {
                 $data[$row['log_id']]['color'] = $stateSColors[$value];
                 $value = $stateSLabels[$value];

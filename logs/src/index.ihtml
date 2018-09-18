@@ -29,7 +29,7 @@
                     {/if}
                 </td>
             {/if}
-            {if $preferences.display_date}<td class='ListColCenter'>{$elem.ctime}</td>{/if}
+            {if $preferences.display_date}<td class='ListColCenter isTimestamp'>{$elem.ctime}</td>{/if}
             {if $preferences.display_type}<td class='ListColCenter'>{$elem.type}</td>{/if}
             {if $preferences.display_tries}<td class='ListColCenter'>{$elem.retry}</td>{/if}
             {if $preferences.display_output}<td class='ListColLeft'>{$elem.output}</td>{/if}
@@ -58,5 +58,8 @@
   var currentpage = "{$page}";
   var orderby = "{$orderby}";
   var nbCurrentItems = "{$dataJS}";
+
+  //formatting the tags containing a class isTimestamp
+  formatDateMoment();
 </script>
 <script type="text/javascript" src="src/data_js.js"></script>

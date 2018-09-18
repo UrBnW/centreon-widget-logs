@@ -12,6 +12,9 @@
         <script type="text/javascript" src="../../include/common/javascript/jquery/jquery-ui.js"></script>
         <script type="text/javascript" src="../../include/common/javascript/widgetUtils.js"></script>
         <script type="text/javascript" src="../../include/common/javascript/jquery/plugins/pagination/jquery.pagination.js"></script>
+        <script type="text/javascript" src="../../include/common/javascript/moment-with-locales.min.2.21.js"></script>
+        <script type="text/javascript" src="../../include/common/javascript/moment-timezone-with-data.min.js"></script>
+        <script type="text/javascript" src="../../include/common/javascript/centreon/dateMoment.js"></script>
     </head>
     <body>
         <div id='eventLogsTable'></div>
@@ -36,10 +39,10 @@
       function loadPage() {
         jQuery.ajax("./src/index.php?widgetId=" + widgetId + "&page=" + pageNumber, {
           success : function(htmlData) {
-          jQuery("#eventLogsTable").html("");
-          jQuery("#eventLogsTable").html(htmlData);
-          var h = document.getElementById("eventLogsTable").scrollHeight;
-          parent.iResize(window.name, h);
+            jQuery("#eventLogsTable").html("");
+            jQuery("#eventLogsTable").html(htmlData);
+            var h = document.getElementById("eventLogsTable").scrollHeight;
+            parent.iResize(window.name, h);
           }
         });
         if (autoRefresh) {
