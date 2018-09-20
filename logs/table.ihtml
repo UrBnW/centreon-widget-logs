@@ -19,39 +19,41 @@
     <body>
         <div id='eventLogsTable'></div>
     </body>
+
     <script type="text/javascript">
-      var widgetId = "{$widgetId}";
-      var autoRefresh = "{$autoRefresh}";
-      var timeout;
-      var itemsPerPage = "{$preferences.entries}";
-      var pageNumber = 0;
-      var clickedCb = new Array();
-      var broker = "{$broker}";
-      {literal}
+        var widgetId = "{$widgetId}";
+        var autoRefresh = "{$autoRefresh}";
+        var timeout;
+        var itemsPerPage = "{$preferences.entries}";
+        var pageNumber = 0;
+        var clickedCb = new Array();
+        var broker = "{$broker}";
 
-      jQuery(function() {
-        loadPage();
-      });
-
-      /**
-      * Load Page
-      */
-      function loadPage() {
-        jQuery.ajax("./src/index.php?widgetId=" + widgetId + "&page=" + pageNumber, {
-          success : function(htmlData) {
-            jQuery("#eventLogsTable").html("");
-            jQuery("#eventLogsTable").html(htmlData);
-            var h = document.getElementById("eventLogsTable").scrollHeight;
-            parent.iResize(window.name, h);
-          }
+        {literal}
+        jQuery(function() {
+            loadPage();
         });
-        if (autoRefresh) {
-          if (timeout) {
-            clearTimeout(timeout);
-          }
-          timeout = setTimeout(loadPage, (autoRefresh * 1000));
+
+        /**
+         *  Load Page
+         */
+        function loadPage() {
+            jQuery.ajax("./src/index.php?widgetId=" + widgetId + "&page=" + pageNumber, {
+                success : function(htmlData) {
+                    jQuery("#eventLogsTable").html("");
+                    jQuery("#eventLogsTable").html(htmlData);
+                    var h = document.getElementById("eventLogsTable").scrollHeight;
+                    parent.iResize(window.name, h);
+                }
+            });
+
+            if (autoRefresh) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(loadPage, (autoRefresh * 1000));
+            }
         }
-      }
-    {/literal}
+        {/literal}
     </script>
 </html>

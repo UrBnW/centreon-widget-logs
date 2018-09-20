@@ -81,7 +81,7 @@ function getStatusColors($db, $object = 'host') {
     );
 
     $res = $db->query("SELECT `key`, `value` FROM `options` WHERE `key` LIKE 'color%'");
-    while ($row = $res->fetchRow()) {
+    while ($row = $res->fetch()) {
         if ($row['key'] == "color_ok") {
             $statusSColors[0] = $row['value'];
         } elseif ($row['key'] == "color_warning") {
