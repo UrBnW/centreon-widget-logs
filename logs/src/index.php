@@ -55,6 +55,9 @@ $db = $dependencyInjector['configuration_db'];
 if (CentreonSession::checkSession(session_id(), $db) == 0) {
     exit;
 }
+/**
+ * @var $dbb CentreonDB
+ */
 $dbb = $dependencyInjector['realtime_db'];
 
 $path = $centreon_path . "www/widgets/logs/src/";
@@ -237,7 +240,7 @@ $query .= " WHERE ctime > '" . $start . "' AND ctime <= '" . $end . "' " . $msg_
 $query .= " ORDER BY ctime DESC, host_name ASC, log_id DESC, service_description ASC";
 $query .= " LIMIT " . ($page * $preferences['entries']) . "," . $preferences['entries'];
 $res = $dbb->query($query);
-$nbRows = $res->rowCount();
+$nbRows = $dbb->query('SELECT FOUND_ROWS()')->fetchColumn();
 $data = array();
 $outputLength = $preferences['output_length'] ? $preferences['output_length'] : 50;
 
