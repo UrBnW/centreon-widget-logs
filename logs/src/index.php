@@ -240,7 +240,7 @@ $query .= " WHERE ctime > '" . $start . "' AND ctime <= '" . $end . "' " . $msg_
 $query .= " ORDER BY ctime DESC, host_name ASC, log_id DESC, service_description ASC";
 $query .= " LIMIT " . ($page * $preferences['entries']) . "," . $preferences['entries'];
 $res = $dbb->query($query);
-$nbRows = $dbb->numberRows();
+$nbRows = $dbb->query('SELECT FOUND_ROWS()')->fetchColumn();
 $data = array();
 $outputLength = $preferences['output_length'] ? $preferences['output_length'] : 50;
 
