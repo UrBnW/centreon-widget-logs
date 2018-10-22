@@ -42,7 +42,7 @@
                 success : function(htmlData) {
                     jQuery("#eventLogsTable").html("");
                     jQuery("#eventLogsTable").html(htmlData);
-                    var h = jQuery("eventLogsTable").prop("scrollHeight");
+                    var h = jQuery("#eventLogsTable").prop("scrollHeight");
                     parent.iResize(window.name, h);
                 }
             });
