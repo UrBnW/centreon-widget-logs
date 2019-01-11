@@ -77,6 +77,7 @@ function getStatusColors($db, $object = 'host') {
         4 => "#2AD1D4"
     );
     $statusINColors = array(
+        0  => '#DCDADA',
         -1 => "#00bfb3",
     );
 
