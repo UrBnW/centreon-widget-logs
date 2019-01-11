@@ -250,7 +250,9 @@ if (!$centreon->user->admin) {
     $lca = array("LcaHost" => $aclObj->getHostServices($dbb, null, 1));
 }
 
+$indexRow = 0;
 while ($row = $res->fetch()) {
+    $indexRow++;
     if (!$centreon->user->admin) {
         $continue = true;
         if (isset($row['host_id']) && isset($lca['LcaHost'][$row['host_id']])) {
@@ -267,27 +269,27 @@ while ($row = $res->fetch()) {
         }
     }
     if (isset($row['host_name']) && $row['host_name'] != "") {
-        $data[$row['log_id']]['object_name1'] = $row['host_name'];
+        $data[$indexRow]['object_name1'] = $row['host_name'];
     } elseif (isset($row['instance_name']) && $row['instance_name'] != "") {
-        $data[$row['log_id']]['object_name1'] = $row['instance_name'];
+        $data[$indexRow]['object_name1'] = $row['instance_name'];
     } else {
-        $data[$row['log_id']]['object_name1'] = "";
+        $data[$indexRow]['object_name1'] = "";
     }
     if (isset($row['service_description']) && $row['service_description'] != "") {
-        $data[$row['log_id']]['object_name2'] = $row['service_description'];
+        $data[$indexRow]['object_name2'] = $row['service_description'];
     } else {
-        $data[$row['log_id']]['object_name2'] = "";
+        $data[$indexRow]['object_name2'] = "";
     }
     foreach ($row as $key => $value) {
         if ($key == "status") {
             if (isset($row['service_description']) && $row['service_description'] != "") {
-                $data[$row['log_id']]['color'] = $stateSColors[$value];
+                $data[$indexRow]['color'] = $stateSColors[$value];
                 $value = $stateSLabels[$value];
             } else if (isset($row['host_name']) && $row['host_name'] != "") {
-                $data[$row['log_id']]['color'] = $stateHColors[$value];
+                $data[$indexRow]['color'] = $stateHColors[$value];
                 $value = $stateHLabels[$value];
             } else {
-                $data[$row['log_id']]['color'] = $stateINColors[$value];
+                $data[$indexRow]['color'] = $stateINColors[$value];
                 $value = "Info";
             }
         } elseif ($key == "output") {
@@ -303,7 +305,7 @@ while ($row = $res->fetch()) {
                 $value = "";
             }
         }
-        $data[$row['log_id']][$key] = $value;
+        $data[$indexRow][$key] = $value;
     }
 }
 
