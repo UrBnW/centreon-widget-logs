@@ -4,7 +4,7 @@
     <email>contact@centreon.com</email>
     <website>http://www.centreon.com</website>
     <description>Widget for displaying event logs</description>
-    <version>18.10.0</version>
+    <version>19.04.0</version>
     <keywords>centreon, widget, event, logs</keywords>
     <screenshot></screenshot>
     <thumbnail>./widgets/logs/resources/centreon-logo.png</thumbnail>
