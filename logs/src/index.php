@@ -65,8 +65,15 @@ $template = new Smarty();
 $template = initSmartyTplForPopup($path, $template, "./", $centreon_path);
 
 $centreon = $_SESSION['centreon'];
-$widgetId = $_REQUEST['widgetId'];
-$page = $_REQUEST['page'];
+$widgetId = filter_var($_REQUEST['widgetId'], FILTER_VALIDATE_INT);
+$page = filter_var($_REQUEST['page'], FILTER_VALIDATE_INT);
+
+if ($widgetId === false) {
+    throw new InvalidArgumentException('Widget ID must be an integer');
+}
+if ($page === false) {
+    throw new InvalidArgumentException('Page must be an integer');
+}
 
 $widgetObj = new CentreonWidget($centreon, $db);
 $preferences = $widgetObj->getWidgetPreferences($widgetId);
@@ -83,9 +90,9 @@ $stateSLabels = getStatusLabels('service');
 // Get type labels
 $typeLabels = getTypeLabels();
 
-$autoRefresh = 0;
-if (isset($preferences['refresh_interval'])) {
-    $autoRefresh = $preferences['refresh_interval'];
+$autoRefresh = (int) $preferences['refresh_interval'];
+if ($autoRefresh < 5) {
+    $autoRefresh = 30;
 }
 
 $host_msg_status_set = array();
