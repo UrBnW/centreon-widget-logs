@@ -64,16 +64,16 @@ function getStatusLabels($object = 'host') {
 
 function getStatusColors($db, $object = 'host') {
     $statusHColors = array(
-        0 => "#13EB3A",
-        1 => "#F91D05",
-        2 => "#DCDADA",
+        0 => "#88B917",
+        1 => "#E00B3D",
+        2 => "#818285",
         3 => "#2AD1D4"
     );
     $statusSColors = array(
-        0 => "#13EB3A",
-        1 => "#F8C706",
-        2 => "#F91D05",
-        3 => "#DCDADA",
+        0 => "#88B917",
+        1 => "#FF9A13",
+        2 => "#E00B3D",
+        3 => "#BCBDC0",
         4 => "#2AD1D4"
     );
     $statusINColors = array(
